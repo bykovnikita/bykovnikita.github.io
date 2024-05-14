@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/inputmask.js"></script>
+    <title>Электролегис</title>
+</head>
+
+<body>
+    <header class="header">
+        <div class="logo">
+            <div class="company-name text-other">Электролегис</div>
+        </div>
+        <div class="phone-number text-bold">+7 (960) 82-11-474</div>
+    </header>
+    <script>
+        function openApplication() {
+            var appWindow = document.getElementsByClassName("application-window")[0];
+            appWindow.style.display = appWindow.style.display === "none" ? "flex" : "none";
+        }
+    </script>
+    <script>
+        function validateForm(form) {
+            var name = form.querySelector('#name').value;
+            var email = form.querySelector('#email').value;
+            var phone = form.querySelector('#phone').value;
+
+            if (name === "") {
+                alert("ФИО должно быть заполнено");
+                return false;
+            }
+
+            var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email)) {
+                alert("Некорректный email");
+                return false;
+            }
+
+            var phonePattern = /^\+\d \(\d{3}\) \d{3}-\d{4}$/;
+            if (!phonePattern.test(phone)) {
+                alert("Некорректный телефон");
+                return false;
+            }
+
+            return true;
+            }
+    </script>
+     <script>
+        function submitForm(form) {
+        var formData = new FormData(form);
+        
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "./send-form.php", true);
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+            alert("Заявка отправлена!");
+            } else {
+            alert("Произошла ошибка при отправке!");
+            }
+        };
+        if (validateForm(form)) {
+            xhr.send(formData);
+            form.reset();
+        }
+        }
+    </script>
+    <div class="application-window" style="display: none">
+        <img alt="" class="button-back" onclick="openApplication()">
+        <form class="order-form contact-form-fields" id="order-form" method="POST" enctype="application/x-www-form-urlencoded">
+            <input class="form-field text-regular" placeholder="ФИО" type="text" id="name" name="name" required>
+            <input class="form-field text-regular" placeholder="Email" type="email" id="email" name="email"
+                required>
+            <input class="phone-mask form-field text-regular" placeholder="Телефон" type="tel" id="phone" name="phone"
+                required>
+            <textarea class="form-field text-regular" placeholder="Текст обращения" rows="6" name="text"></textarea>
+            <input class="form-button text-regular text-color-white" type="button" onclick="submitForm(document.getElementById('order-form'));" value="Отправить">
+        </form>
+    </div>
+    <div class="container">
+        <div class="cover">
+            <div class="main-info">
+                <div>
+                    <div class="text-h1-bold">Взаимодействие</div>
+                    <div class="text-h1-regular">с ресурсоснабжающими<br />организациями!</div>
+                </div>
+                <div class="about-us">
+                    <img src="img/arrow.svg" alt="arrow" class="arrow">
+                    <div class="text-regular">Мы - ваш надежный партнер в области ресурсоснабжения,
+                        предоставляя полный спектр услуг для вашей комфортной работы</div>
+                </div>
+            </div>
+            <div class="services">
+                <script>
+                    function openCard(cardId) {
+                        document.getElementById('card' + cardId).classList.contains('card-open') ? document.getElementById('card' + cardId).classList.remove('card-open') : document.getElementById('card' + cardId).classList.add('card-open')
+                    }
+                </script>
+                <div class="card" id="card1">
+                    <div class="card-header">
+                        <img src="img/card-icon-1.svg" alt="card-icon" class="card-icon">
+                        <div class="card-title text-bold text-color-white">Получение технических условий для
+                            подключений
+                        </div>
+                        <img alt="" class="card-button-open" onclick="openCard(1)">
+                    </div>
+                    <div class="card-desc-block">
+                        <div class="card-description text-regular text-color-white">
+                            Упростим и ускорим процесс получения необходимых технических условий, сэкономив ваше
+                            время и
+                            ресурсы.
+                        </div>
+                        <div class="card-button text-bold text-color-white" onclick="openApplication()">
+                            Оставить заявку
+                        </div>
+                    </div>
+                </div>
+                <div class="card" id="card2">
+                    <div class="card-header">
+                        <img src="img/card-icon-2.svg" alt="card-icon" class="card-icon">
+                        <div class="card-title text-bold text-color-white">
+                            Согласование увеличения мощностей
+                        </div>
+                        <img alt="" class="card-button-open" onclick="openCard(2)">
+                    </div>
+                    <div class="card-desc-block">
+                        <div class="card-description text-regular text-color-white">
+                            Поможем вам увеличить мощность с минимальными задержками и бюрократическими сложностями.
+                        </div>
+                        <div class="card-button text-bold text-color-white" onclick="openApplication()">
+                            Оставить заявку
+                        </div>
+                    </div>
+                </div>
+                <div class="card" id="card3">
+                    <div class="card-header">
+                        <img src="img/card-icon-3.svg" alt="card-icon" class="card-icon">
+                        <div class="card-title text-bold text-color-white">
+                            Прохождение поверки счетчиков
+                        </div>
+                        <img alt="" class="card-button-open" onclick="openCard(3)">
+                    </div>
+                    <div class="card-desc-block">
+                        <div class="card-description text-regular text-color-white">
+                            Проведем поверку счетчиков и обеспечим их соответствие стандартам.
+                        </div>
+                        <div class="card-button text-bold text-color-white" onclick="openApplication()">
+                            Оставить заявку
+                        </div>
+                    </div>
+                </div>
+                <div class="card" id="card4">
+                    <div class="card-header">
+                        <img src="img/card-icon-4.svg" alt="card-icon" class="card-icon">
+                        <div class="card-title text-bold text-color-white">
+                            Обслуживание счетчиков
+                        </div>
+                        <img alt="" class="card-button-open" onclick="openCard(4)">
+                    </div>
+                    <div class="card-desc-block">
+                        <div class="card-description text-regular text-color-white">
+                            Предоставим надежное обслуживание и регулярную проверку ваших счетчиков.
+                        </div>
+                        <div class="card-button text-bold text-color-white" onclick="openApplication()">
+                            Оставить заявку
+                        </div>
+                    </div>
+                </div>
+                <div class="card" id="card5">
+                    <div class="card-header">
+                        <img src="img/card-icon-5.svg" alt="card-icon" class="card-icon">
+                        <div class="card-title text-bold text-color-white">
+                            Сопровождение споров по порядку расчетов
+                        </div>
+                        <img alt="" class="card-button-open" onclick="openCard(5)">
+                    </div>
+                    <div class="card-desc-block">
+                        <div class="card-description text-regular text-color-white">
+                            Окажем квалифицированную юридическую поддержку для решения финансовых споров с ресурсоснабжающими организациями.
+                        </div>
+                        <div class="card-button text-bold text-color-white" onclick="openApplication()">
+                            Оставить заявку
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bottom-block">
+        <div class="contact-block">
+            <div class="contact-form">
+                <div class="contact-form-title text-bold">Напишите нам,<br> и мы с вами свяжемся</div>
+                <form class="contact-form-fields" id="contact-form" method="post">
+                    <input class="form-field text-regular" placeholder="ФИО" type="text" id="name" name="name" required>
+                    <input class="form-field text-regular" placeholder="Email" type="email" id="email" name="email"
+                        required>
+                    <input class="phone-mask form-field text-regular" placeholder="Телефон" type="tel" id="phone" name="phone"
+                        required>
+                    <textarea class="form-field text-regular" placeholder="Текст обращения" rows="6" name="text"></textarea>
+                    <input class="form-button text-regular text-color-white" type="button" onclick="submitForm(document.getElementById('contact-form'))" value="Отправить">
+                </form>
+            </div>
+        </div>
+        <div class="tagline-block">
+            <div class="tagline-text">
+                <div class="text-h2-bold">Эффективные</div>
+                <div class="text-h2-regular text-color-white">ресурсные решения — ваш успех в надежных руках!</div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var phoneInputs = document.getElementsByName("phone");
+
+        var im = new Inputmask("+7 (999) 999-9999");
+        
+        phoneInputs.forEach(phone => {
+            im.mask(phone);
+        });
+    </script>
+</body>
+
+</html>
